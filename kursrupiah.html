@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurs Rupiah</title>
+</head>
+<style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px;
+    }
+
+    th, td {
+      border: 2px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: aqua;
+    }
+    fieldset {
+        border: 2px solid black;
+    }
+</style>
+<body>
+    <fieldset>
+        <legend>Kurs Rupiah - Mata Uang Asing</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>Masukkan Nilai</th>
+                    <th>Valas</th>
+                    <th>Nilai Rupiah</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" id="jumlah" onchange="kurs()">
+                    </td>
+                    <td>
+                        <select id="jenis" onchange="kurs()">
+                            <option>Pilih Mata Uang</option>
+                            <option id="us">Dolar US</option>
+                            <option id="sng">Dolar Singapura</option>
+                            <option id="ri">Ringgit Malaysia</option>
+                            <option id="yen">Yen Jepang</option>
+                            <option id="eur">Euro</option>
+                            <option id="ryl">Riyal Arab Saudi</option>
+                        </select>
+                    </td>
+                    <td>
+                        <p><span id="hasil">0</span></p>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </fieldset>
+
+    <script>
+        function kurs() {
+            const dolarus = 15488;
+            const dolarsg = 11694;
+            const ringgit = 3343;
+            const yen = 108;
+            const euro = 17042;
+            const riyal = 4129;
+    
+            let jumlah = document.getElementById("jumlah").value;
+            let jenis = document.getElementById("jenis").value;
+            let total = 0;
+    
+            if (jenis == "Dolar US") {
+                total = jumlah * dolarus;
+            } else if (jenis == "Dolar Singapura") {
+                total = jumlah * dolarsg;
+            } else if (jenis == "Ringgit Malaysia") {
+                total = jumlah * ringgit;
+            } else if (jenis == "Yen Jepang") {
+                total = jumlah * yen;
+            } else if (jenis == "Euro") {
+                total = jumlah * euro;
+            } else if (jenis == "Riyal Arab Saudi") {
+                total = jumlah * riyal;
+            }
+            
+            let hasil = document.getElementById("hasil");
+            hasil.innerHTML = total;
+        }
+    </script>
+</body>
+</html>

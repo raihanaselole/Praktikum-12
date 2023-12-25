@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <style>
+      .success {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <form id="myForm" action="">
+        <tr>
+          <td><label for="">Nama Pelanggan:</label></td>
+          <td><input type="text" id="nama" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="color: red" id="validaion_name"></td>
+        </tr>
+        <tr>
+          <td><label for="">Email:</label></td>
+          <td><input type="text" id="email" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="color: red" id="validaion_email"></td>
+        </tr>
+        <tr>
+          <td><label for="">Jam Keberangkatan:</label></td>
+          <td><input type="time" id="jam" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="color: red" id="validaion_jam"></td>
+        </tr>
+        <tr>
+          <td><label for="">Tujuan Keberangkatan:</label></td>
+          <td><input type="text" id="tujuan" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="color: red" id="validaion_tujuan"></td>
+        </tr>
+        <tr>
+          <td><label for="">Jumlah Tiket:</label></td>
+          <td><input type="number" id="tiket" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="color: red" id="validaion_tiket"></td>
+        </tr>
+        <tr>
+          <td><button onclick="validateForm()">Submit</button></td>
+        </tr>
+      </form>
+      <tbody>
+        <tr class="success">
+          <td colspan="2">Detail Pelanggan</td>
+        </tr>
+        <tr class="success">
+          <td>Nama Pelanggan :</td>
+          <td id="name_value"></td>
+        </tr>
+        <tr class="success">
+          <td>Email :</td>
+          <td id="email_value"></td>
+        </tr>
+        <tr class="success">
+          <td>Jam Keberangkatan :</td>
+          <td id="jam_value"></td>
+        </tr>
+        <tr class="success">
+          <td>Tujuan Keberangkatan :</td>
+          <td id="tujuan_value"></td>
+        </tr>
+        <tr class="success">
+          <td>Jumlah Tiket :</td>
+          <td id="jumlah_value"></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      const myForm = document.getElementById("myForm");
+      myForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+      });
+      function validateForm() {
+        const validations = {
+          name: [],
+          email: [],
+          jam: [],
+          tujuan: [],
+          tiket: [],
+        };
+
+        // VALIDATION FOR NAME
+        const namaInput = document.getElementById("nama");
+        const nameValue = namaInput.value.trim();
+        var validationList = document.getElementById("validaion_name");
+        if (nameValue === "") {
+          validations.name.push("Nama Wajib di Isi");
+        } else {
+          if (nameValue.length > 30) {
+            validations.name.push("Nama Tidak Boleh Melebihi 30 Karakter");
+          }
+        }
+        if (validations.name.length > 0) {
+          namaInput.style.color = "red";
+          namaInput.style.borderColor = "red";
+          let messageLi = "";
+          validations.name.forEach(function (message) {
+            messageLi = messageLi + `<li>${message}</li>`;
+          });
+          validationList.innerHTML = `<ul style="margin: 0">${messageLi}</ul>`;
+        } else {
+          namaInput.style.color = "black";
+          namaInput.style.borderColor = "black";
+          validationList.innerHTML = "";
+        }
+
+        // VALIDAION FOR EMAIL
+        const emailInput = document.getElementById("email");
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var validationListEmail = document.getElementById("validaion_email");
+        if (emailValue === "") {
+          validations.email.push("Email Wajib di Isi");
+        } else {
+          if (!emailPattern.test(emailValue)) {
+            validations.email.push("Inputkan Email Yang Valid.");
+          }
+        }
+        if (validations.email.length > 0) {
+          emailInput.style.color = "red";
+          emailInput.style.borderColor = "red";
+          let messageLi = "";
+          validations.email.forEach(function (message) {
+            messageLi = messageLi + `<li>${message}</li>`;
+          });
+          validationListEmail.innerHTML = `<ul style="margin: 0">${messageLi}</ul>`;
+        } else {
+          emailInput.style.color = "black";
+          emailInput.style.borderColor = "black";
+          validationListEmail.innerHTML = "";
+        }
+
+        //   VALIDATION JAM
+        const jamInput = document.getElementById("jam");
+        const jamValue = jamInput.value;
+        var validationListJam = document.getElementById("validaion_jam");
+
+        if (jamValue == "") {
+          validations.jam.push("Jam Wajib di Isi");
+        }
+        if (validations.jam.length > 0) {
+          jamInput.style.color = "red";
+          jamInput.style.borderColor = "red";
+          let messageLi = "";
+          validations.jam.forEach(function (message) {
+            messageLi = messageLi + `<li>${message}</li>`;
+          });
+          validationListJam.innerHTML = `<ul style="margin: 0">${messageLi}</ul>`;
+        } else {
+          jamInput.style.color = "black";
+          jamInput.style.borderColor = "black";
+          validationListJam.innerHTML = "";
+        }
+
+        //   VALIDATION TUJUAN
+        const tujuanInput = document.getElementById("tujuan");
+        const tujuanValue = tujuanInput.value.trim();
+        var validationLisiTujuan = document.getElementById("validaion_tujuan");
+
+        if (tujuanValue == "") {
+          validations.tujuan.push("Tujuan Wajib di Isi");
+        }
+        if (validations.tujuan.length > 0) {
+          tujuanInput.style.color = "red";
+          tujuanInput.style.borderColor = "red";
+          let messageLi = "";
+          validations.tujuan.forEach(function (message) {
+            messageLi = messageLi + `<li>${message}</li>`;
+          });
+          validationLisiTujuan.innerHTML = `<ul style="margin: 0">${messageLi}</ul>`;
+        } else {
+          tujuanInput.style.color = "black";
+          tujuanInput.style.borderColor = "black";
+          validationLisiTujuan.innerHTML = "";
+        }
+
+        //   VALIDATIN JUMLAH TIKET
+        const jumalhTiketInput = document.getElementById("tiket");
+        const jumalhTiketValue = jumalhTiketInput.value;
+        var validationLisiTiket = document.getElementById("validaion_tiket");
+
+        if (jumalhTiketValue == "") {
+          validations.tiket.push("Jumlah Tiket Wajib di Isi");
+        }
+        if (parseInt(jumalhTiketValue) < 1 || parseInt(jumalhTiketValue) > 10) {
+          console.log("this is run");
+          validations.tiket.push(
+            "Tidak Boleh kuarang dari 1 atau lebih dari 10"
+          );
+        }
+        if (validations.tujuan.length > 0) {
+          jumalhTiketInput.style.color = "red";
+          jumalhTiketInput.style.borderColor = "red";
+          let messageLi = "";
+          validations.tiket.forEach(function (message) {
+            messageLi = messageLi + `<li>${message}</li>`;
+          });
+          validationLisiTiket.innerHTML = `<ul style="margin: 0">${messageLi}</ul>`;
+        } else {
+          jumalhTiketInput.style.color = "black";
+          jumalhTiketInput.style.borderColor = "black";
+          validationLisiTiket.innerHTML = "";
+        }
+
+        // ===============================
+        if (
+          validations.email.length == 0 &&
+          validations.jam.length == 0 &&
+          validations.name.length == 0 &&
+          validations.tujuan.length == 0 &&
+          validations.tiket.length == 0
+        ) {
+          const success = document.getElementsByClassName("success");
+          for (let i = 0; i < success.length; i++) {
+            success[i].style.display = "block";
+          }
+
+          document.getElementById("name_value").innerText = nameValue;
+          document.getElementById("email_value").innerText = emailValue;
+          document.getElementById("jam_value").innerText = jamValue;
+          document.getElementById("tujuan_value").innerText = tujuanValue;
+          document.getElementById("jumlah_value").innerText = jumalhTiketValue;
+        }
+      }
+    </script>
+  </body>
+</html>

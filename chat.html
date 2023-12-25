@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Box</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #chat {
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        #input {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid black;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: aqua;
+            margin-left: 5px;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="chat"></div>
+        <input type="text" id="input" placeholder="Type your message..." onkeydown="kirimPesan(event)">
+        <button onclick="kirim()">Send</button>
+    </div>
+    
+    <script>
+        function kirim() {
+            var userInput = document.getElementById('input');
+            var chatMessages = document.getElementById('chat');
+
+            var pesan = userInput.value;
+            chatMessages.innerHTML += '<p>' + pesan + '</p>';
+            userInput.value = '';
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function kirimPesan(event) {
+            if (event.key === "Enter") {
+                var userInput = document.getElementById('input');
+                var chatMessages = document.getElementById('chat');
+
+                var pesan = userInput.value;
+                chatMessages.innerHTML += '<p>' + pesan + '</p>';
+                userInput.value = '';
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        } 
+    </script>
+
+</body>
+</html>
